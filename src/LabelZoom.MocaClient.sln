@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabelZoom.MocaClient", "LabelZoom.MocaClient\LabelZoom.MocaClient.csproj", "{0E495419-F96C-4525-9EFB-761A03948124}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabelZoom.MocaClient.Tests", "LabelZoom.MocaClient.Tests\LabelZoom.MocaClient.Tests.csproj", "{3E1159D2-7BFF-4027-A5C9-130E728CC05B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{0E495419-F96C-4525-9EFB-761A03948124}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E495419-F96C-4525-9EFB-761A03948124}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E495419-F96C-4525-9EFB-761A03948124}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E1159D2-7BFF-4027-A5C9-130E728CC05B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E1159D2-7BFF-4027-A5C9-130E728CC05B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E1159D2-7BFF-4027-A5C9-130E728CC05B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E1159D2-7BFF-4027-A5C9-130E728CC05B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

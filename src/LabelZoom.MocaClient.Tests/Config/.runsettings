@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <RunConfiguration>
+    <EnvironmentVariables>
+      <MOCA_URL>http://localhost:4600/service</MOCA_URL>
+      <MOCA_HOST>localhost</MOCA_HOST>
+      <MOCA_PORT>4610</MOCA_PORT>
+      <MOCA_USER>SUPER</MOCA_USER>
+      <MOCA_PASS>super</MOCA_PASS>
+    </EnvironmentVariables>
+  </RunConfiguration>
+</RunSettings>
