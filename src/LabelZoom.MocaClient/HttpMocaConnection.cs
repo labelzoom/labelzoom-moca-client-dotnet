@@ -7,7 +7,6 @@ using System.Threading;
 using System.Xml;
 using LabelZoom.MocaClient.Exceptions;
 using System.Reflection;
-using Microsoft.Extensions.Logging;
 
 namespace LabelZoom.MocaClient
 {
