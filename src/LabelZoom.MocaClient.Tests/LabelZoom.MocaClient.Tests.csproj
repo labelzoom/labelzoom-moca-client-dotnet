@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LabelZoom.MocaClient\LabelZoom.MocaClient.csproj" />
+  </ItemGroup>
+
 </Project>
