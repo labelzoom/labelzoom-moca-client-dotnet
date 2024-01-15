@@ -4,7 +4,7 @@ using System.Data;
 
 namespace LabelZoom.MocaClient
 {
-    public abstract class MocaConnection : IDbConnection
+    public abstract class MocaConnection : IDisposable
     {
         protected const string MOCA_DATE_FORMAT = "yyyyMMddHHmmss";
 
@@ -12,43 +12,9 @@ namespace LabelZoom.MocaClient
         protected string? sessionKey;
         protected string? userId;
 
-        public abstract string ConnectionString { get; set; }
+        public abstract string ConnectionString { get; protected set; }
 
         public int ConnectionTimeout => 15;
-
-        public string Database => throw new NotImplementedException();
-
-        public ConnectionState State => throw new NotImplementedException();
-
-        public IDbTransaction BeginTransaction()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IDbTransaction BeginTransaction(IsolationLevel il)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ChangeDatabase(string databaseName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Close()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IDbCommand CreateCommand()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Open()
-        {
-            throw new NotImplementedException();
-        }
 
         #region Dispose Pattern
         private bool disposedValue;

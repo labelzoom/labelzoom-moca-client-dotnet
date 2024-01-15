@@ -33,7 +33,7 @@ namespace LabelZoom.MocaClient
             httpClient.Timeout = TimeSpan.FromSeconds(ConnectionTimeout);
         }
 
-        public override string ConnectionString { get; set; }
+        public override string ConnectionString { get; protected set; }
 
         private async Task<HttpResponseMessage> PostXml(string xml, CancellationToken token)
         {

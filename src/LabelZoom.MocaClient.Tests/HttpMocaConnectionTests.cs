@@ -1,4 +1,3 @@
-
 using System.Data;
 
 namespace LabelZoom.MocaClient.Tests;
@@ -20,7 +19,7 @@ public class HttpMocaConnectionTests
             MocaResponse res = await conn.Execute("publish data where message = 'Hello World!'");
             Assert.Equal(0, res.StatusCode);
             Assert.NotNull(res.ResponseData);
-            using (DataTable  dt = res.ResponseData)
+            using (DataTable dt = res.ResponseData)
             {
                 Assert.Equal(1, dt.Rows.Count);
                 Assert.Equal("Hello World!", dt.Rows[0].Field<string>("message"));
