@@ -6,3 +6,18 @@
 [![Release](https://img.shields.io/github/release/labelzoom/labelzoom-moca-client-dotnet.svg?style=flat-square)](https://github.com/labelzoom/labelzoom-moca-client-dotnet/releases)
 
 MOCA client for .NET, sponsored by [LabelZoom](https://www.labelzoom.net).
+
+## How To Use
+See [tests](src/LabelZoom.MocaClient.Tests) for more examples.
+
+```csharp
+using (MocaConnection conn = new HttpMocaConnection(url))
+{
+    await conn.Login(user, password);
+    MocaResponse res = await conn.Execute("publish data where message = 'Hello World!'");
+    using (DataTable dt = res.ResponseData)
+    {
+        Console.WriteLine($"Message: {dt.Rows[0].Field<string>("message")}")
+    }
+}
+```
