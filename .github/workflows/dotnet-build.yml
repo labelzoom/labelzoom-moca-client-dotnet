@@ -35,3 +35,9 @@ jobs:
     - name: Test
       working-directory: ./src
       run: ../.dotnet/dotnet test --no-build --verbosity normal
+      env:
+        MOCA_URL: ${{secrets.MOCA_URL}}
+        MOCA_HOST: ${{secrets.MOCA_HOST}}
+        MOCA_PORT: ${{secrets.MOCA_PORT}}
+        MOCA_USER: ${{secrets.MOCA_USER}}
+        MOCA_PASS: ${{secrets.MOCA_PASS}}
