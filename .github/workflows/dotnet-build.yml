@@ -12,20 +12,32 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
+    env:
+      DOTNET_INSTALL_DIR: "./.dotnet"
 
     steps:
     - uses: actions/checkout@v3
+    
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 8.0.x
+        
     - name: Restore dependencies
       working-directory: ./src
-      run: dotnet restore
+      run: ../.dotnet/dotnet restore
+      
     - name: Build
       working-directory: ./src
-      run: dotnet build --no-restore
+      run: ../.dotnet/dotnet build --no-restore
+      
     - name: Test
       working-directory: ./src
-      run: dotnet test --no-build --verbosity normal
+      run: ../.dotnet/dotnet test --no-build --verbosity normal
+      env:
+        MOCA_URL: ${{secrets.MOCA_URL}}
+        MOCA_HOST: ${{secrets.MOCA_HOST}}
+        MOCA_PORT: ${{secrets.MOCA_PORT}}
+        MOCA_USER: ${{secrets.MOCA_USER}}
+        MOCA_PASS: ${{secrets.MOCA_PASS}}

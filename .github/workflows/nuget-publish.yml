@@ -6,7 +6,9 @@ on:
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
+    env:
+      DOTNET_INSTALL_DIR: "./.dotnet"
 
     steps:
     - uses: actions/checkout@v3
@@ -14,24 +16,30 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 8.0.x
 
     - name: Restore dependencies
       working-directory: ./src
-      run: dotnet restore
+      run: ../.dotnet/dotnet restore
 
     - name: Build
       working-directory: ./src
-      run: dotnet build --no-restore --configuration Release
+      run: ../.dotnet/dotnet build --no-restore --configuration Release
 
     - name: Test
       working-directory: ./src
-      run: dotnet test --no-build
+      run: ../.dotnet/dotnet test --no-build
+      env:
+        MOCA_URL: ${{secrets.MOCA_URL}}
+        MOCA_HOST: ${{secrets.MOCA_HOST}}
+        MOCA_PORT: ${{secrets.MOCA_PORT}}
+        MOCA_USER: ${{secrets.MOCA_USER}}
+        MOCA_PASS: ${{secrets.MOCA_PASS}}
 
     - name: Pack
       working-directory: ./src
-      run: dotnet pack --no-build --output nupkg
+      run: ../.dotnet/dotnet pack --no-build --output nupkg
 
     - name: Publish
       working-directory: ./src
-      run: dotnet nuget push "nupkg/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key ${{secrets.NUGET_API_KEY}}
+      run: ../.dotnet/dotnet nuget push "nupkg/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key ${{secrets.NUGET_API_KEY}}
