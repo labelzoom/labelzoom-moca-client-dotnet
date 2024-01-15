@@ -22,12 +22,6 @@ public class HttpMocaConnectionTests
     [Fact]
     public async Task WithValidLogin_TestPublishDataWithOneRow()
     {
-        var url = Environment.GetEnvironmentVariable("MOCA_URL") ?? string.Empty;
-        Assert.NotEmpty(url);
-        var user = Environment.GetEnvironmentVariable("MOCA_USER") ?? string.Empty;
-        Assert.NotEmpty(user);
-        var password = Environment.GetEnvironmentVariable("MOCA_PASS") ?? string.Empty;
-        Assert.NotEmpty(password);
         using (HttpMocaConnection conn = new HttpMocaConnection(url))
         {
             await conn.Login(user, password);
