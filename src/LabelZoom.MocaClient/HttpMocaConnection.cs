@@ -43,32 +43,23 @@ namespace LabelZoom.MocaClient
                 {
                     request.Content = content;
                     HttpResponseMessage response = await httpClient.SendAsync(request, token);
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        throw new Exception($"HTTP error {response.StatusCode}");
-                    }
+                    response.EnsureSuccessStatusCode();
                     return response;
                 }
             }
         }
 
-        public override async Task<bool> Login(string userId, string password)
-        {
-            using (CancellationTokenSource cts = new CancellationTokenSource())
-            {
-                return await Login(userId, password, cts.Token);
-            }
-        }
+        public override async Task<bool> Login(string userId, string password) => await Login(userId, password, CancellationToken.None);
         public override async Task<bool> Login(string userId, string password, CancellationToken token)
         {
             try
             {
-                using (HttpResponseMessage response = await PostXml($"<moca-request autocommit=\"True\"><environment><var name=\"USR_ID\" value=\"RFAUST\"/></environment><query>login user where usr_id = &apos;{SecurityElement.Escape(userId)}&apos; and usr_pswd = &apos;{SecurityElement.Escape(password)}&apos;</query></moca-request>", token))
+                using (HttpResponseMessage response = await PostXml($"<moca-request autocommit=\"True\"><query>login user where usr_id = &apos;{SecurityElement.Escape(userId)}&apos; and usr_pswd = &apos;{SecurityElement.Escape(password)}&apos;</query></moca-request>", token))
                 {
                     MocaResponse mocaResponse = MocaResponse.FromXml(await response.Content.ReadAsStringAsync());
                     if (mocaResponse.IsError)
                     {
-                        throw MocaExceptionFactory.Generate(mocaResponse.StatusCode, mocaResponse.StatusMessage);
+                        throw MocaExceptionFactory.Generate(mocaResponse.StatusCode, mocaResponse.StatusMessage ?? string.Empty);
                     }
                     sessionKey = mocaResponse.ResponseData?.Rows[0]["session_key"].ToString();
                     this.userId = userId;
@@ -102,16 +93,10 @@ namespace LabelZoom.MocaClient
             userId = null;
         }
 
-        public override async Task<MocaResponse> Execute(string command, IDictionary<string, object>? context = null)
-        {
-            using (CancellationTokenSource cts = new CancellationTokenSource())
-            {
-                return await Execute(command, cts.Token, context);
-            }
-        }
+        public override async Task<MocaResponse> Execute(string command, IDictionary<string, object>? context = null) => await Execute(command, CancellationToken.None, context);
         public override async Task<MocaResponse> Execute(string command, CancellationToken token, IDictionary<string, object>? context = null)
         {
-            if (sessionKey == null)
+            if (string.IsNullOrEmpty(sessionKey))
             {
                 throw new InvalidOperationException("Not logged in");
             }
@@ -124,7 +109,7 @@ namespace LabelZoom.MocaClient
                     MocaResponse mocaResponse = MocaResponse.FromXml(await response.Content.ReadAsStringAsync());
                     if (mocaResponse.IsError)
                     {
-                        throw MocaExceptionFactory.Generate(mocaResponse.StatusCode, mocaResponse.StatusMessage);
+                        throw MocaExceptionFactory.Generate(mocaResponse.StatusCode, mocaResponse.StatusMessage ?? string.Empty);
                     }
                     return mocaResponse;
                 }
@@ -171,7 +156,7 @@ namespace LabelZoom.MocaClient
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        private XmlDocument GetXmlForRequest(string query, IDictionary<string, object> context = null)
+        private XmlDocument GetXmlForRequest(string query, IDictionary<string, object>? context = null)
         {
             XmlDocument doc = new XmlDocument();
 
@@ -179,7 +164,7 @@ namespace LabelZoom.MocaClient
             mocaNode.SetAttribute("autocommit", "True");
             mocaNode.AppendChild(GetEnvironmentNode(doc));
 
-            if (context != null && context.Count > 0)
+            if (context?.Count > 0)
             {
                 XmlElement contextNode = doc.CreateElement(string.Empty, "context", string.Empty);
 
