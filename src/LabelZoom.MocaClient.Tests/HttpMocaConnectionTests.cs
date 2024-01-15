@@ -45,7 +45,7 @@ public class HttpMocaConnectionTests
     [Fact]
     public async Task WithValidLogin_TestPublishDataWithMultipleRow()
     {
-        using (HttpMocaConnection conn = new HttpMocaConnection(url))
+        using (MocaConnection conn = new HttpMocaConnection(url))
         {
             await conn.Login(user, password);
             MocaResponse res = await conn.Execute("publish data where a = 1 and b = 2 & publish data where a = 3 and b = 4");

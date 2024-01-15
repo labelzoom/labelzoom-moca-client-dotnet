@@ -52,14 +52,14 @@ namespace LabelZoom.MocaClient
             }
         }
 
-        public async Task<bool> Login(string userId, string password)
+        public override async Task<bool> Login(string userId, string password)
         {
             using (CancellationTokenSource cts = new CancellationTokenSource())
             {
                 return await Login(userId, password, cts.Token);
             }
         }
-        public async Task<bool> Login(string userId, string password, CancellationToken token)
+        public override async Task<bool> Login(string userId, string password, CancellationToken token)
         {
             try
             {
@@ -92,7 +92,7 @@ namespace LabelZoom.MocaClient
             return true;
         }
 
-        public void LogOut()
+        public override void LogOut()
         {
             if (sessionKey != null)
             {
@@ -102,14 +102,14 @@ namespace LabelZoom.MocaClient
             userId = null;
         }
 
-        public async Task<MocaResponse> Execute(string command, IDictionary<string, object> context = null)
+        public override async Task<MocaResponse> Execute(string command, IDictionary<string, object>? context = null)
         {
             using (CancellationTokenSource cts = new CancellationTokenSource())
             {
                 return await Execute(command, cts.Token, context);
             }
         }
-        public async Task<MocaResponse> Execute(string command, CancellationToken token, IDictionary<string, object> context = null)
+        public override async Task<MocaResponse> Execute(string command, CancellationToken token, IDictionary<string, object>? context = null)
         {
             if (sessionKey == null)
             {

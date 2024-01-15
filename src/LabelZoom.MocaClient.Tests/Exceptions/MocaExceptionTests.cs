@@ -27,7 +27,7 @@ public class MocaExceptionTests
     [Fact]
     public async Task TestSyntaxError()
     {
-        using (HttpMocaConnection conn = new HttpMocaConnection(url))
+        using (MocaConnection conn = new HttpMocaConnection(url))
         {
             await conn.Login(user, password);
             MocaException ex = await Assert.ThrowsAsync<MocaException>(async () => await conn.Execute("publish data a = 1"));
@@ -39,7 +39,7 @@ public class MocaExceptionTests
     [Fact]
     public async Task TestCommandNotFound()
     {
-        using (HttpMocaConnection conn = new HttpMocaConnection(url))
+        using (MocaConnection conn = new HttpMocaConnection(url))
         {
             await conn.Login(user, password);
             MocaException ex = await Assert.ThrowsAsync<CommandNotFoundException>(async () => await conn.Execute("this command doesnt exist"));
@@ -51,7 +51,7 @@ public class MocaExceptionTests
     [Fact]
     public async Task TestNoRowsAffected()
     {
-        using (HttpMocaConnection conn = new HttpMocaConnection(url))
+        using (MocaConnection conn = new HttpMocaConnection(url))
         {
             await conn.Login(user, password);
             MocaException ex = await Assert.ThrowsAsync<NotFoundException>(async () => await conn.Execute("[select polcod, polvar, polval from poldat where 1 = 2]"));
@@ -64,7 +64,7 @@ public class MocaExceptionTests
     [Fact]
     public async Task TestInvalidColumn()
     {
-        using (HttpMocaConnection conn = new HttpMocaConnection(url))
+        using (MocaConnection conn = new HttpMocaConnection(url))
         {
             await conn.Login(user, password);
             MocaException ex = await Assert.ThrowsAsync<MocaException>(async () => await conn.Execute("[select qw9io0ejoower from poldat where 1 = 2]"));

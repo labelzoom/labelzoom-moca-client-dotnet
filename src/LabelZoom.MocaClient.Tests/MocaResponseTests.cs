@@ -26,7 +26,7 @@ public class MocaResponseTests
     [Fact]
     public async Task TestDataTypes()
     {
-        using (HttpMocaConnection conn = new HttpMocaConnection(url))
+        using (MocaConnection conn = new HttpMocaConnection(url))
         {
             await conn.Login(user, password);
             MocaResponse res = await conn.Execute("publish data" +
