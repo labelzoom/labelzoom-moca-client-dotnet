@@ -12,7 +12,7 @@ on:
 jobs:
   build:
 
-    runs-on: self-
+    runs-on: self-hosted
     env:
       DOTNET_INSTALL_DIR: "./.dotnet"
 
