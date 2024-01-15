@@ -28,7 +28,7 @@ jobs:
 
     - name: Test
       working-directory: ./src
-      run: ../.dotnet/dotnet test --no-build
+      run: ../.dotnet/dotnet test --no-build --configuration Release
       env:
         MOCA_URL: ${{secrets.MOCA_URL}}
         MOCA_HOST: ${{secrets.MOCA_HOST}}
@@ -38,8 +38,8 @@ jobs:
 
     - name: Pack
       working-directory: ./src
-      run: ../.dotnet/dotnet pack --no-build --output nupkg
+      run: ../.dotnet/dotnet pack --no-build --output nupkg --configuration Release
 
     - name: Publish
       working-directory: ./src
-      run: ../.dotnet/dotnet nuget push "nupkg/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key ${{secrets.NUGET_API_KEY}}
+      run: ../.dotnet/dotnet nuget push "nupkg/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key ${{secrets.NUGET_API_KEY}} --configuration Release
