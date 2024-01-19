@@ -11,9 +11,9 @@ namespace LabelZoom.MocaClient
 
         public int StatusCode { get; private set; }
 
-        public string? StatusMessage { get; private set; }
+        public string StatusMessage { get; private set; }
 
-        public DataTable? ResponseData { get; private set; }
+        public DataTable ResponseData { get; private set; }
 
         public static MocaResponse FromXml(string xml)
         {
@@ -27,7 +27,7 @@ namespace LabelZoom.MocaClient
             };
         }
 
-        private static DataTable? XmlToDataTable(XmlNode mocaResults)
+        private static DataTable XmlToDataTable(XmlNode mocaResults)
         {
             if (mocaResults != null)
             {
@@ -99,34 +99,34 @@ namespace LabelZoom.MocaClient
                         XmlAttribute isNull = field.Attributes["null"];
                         if (isNull != null && bool.Parse(isNull.Value))
                         {
-                            newRow.SetField<string?>(fieldNumber, null);
+                            newRow[fieldNumber] = DBNull.Value;
                         }
                         else
                         {
                             Type columnType = dt.Columns[fieldNumber].DataType;
                             if (columnType == typeof(bool))
                             {
-                                newRow.SetField(fieldNumber, "1".Equals(field.InnerText) ? true : false);
+                                newRow[fieldNumber] = "1".Equals(field.InnerText) ? true : false;
                             }
                             else if (columnType == typeof(double))
                             {
-                                newRow.SetField(fieldNumber, double.Parse(field.InnerText));
+                                newRow[fieldNumber] = double.Parse(field.InnerText);
                             }
                             else if (columnType == typeof(int))
                             {
-                                newRow.SetField(fieldNumber, int.Parse(field.InnerText));
+                                newRow[fieldNumber] = int.Parse(field.InnerText);
                             }
                             else if (columnType == typeof(DataTable))
                             {
-                                newRow.SetField(fieldNumber, XmlToDataTable(field.SelectSingleNode("moca-results")));
+                                newRow[fieldNumber] = XmlToDataTable(field.SelectSingleNode("moca-results"));
                             }
                             else if (columnType == typeof(DateTime))
                             {
-                                newRow.SetField(fieldNumber, DateTime.ParseExact(field.InnerText, "yyyyMMddHHmmss", CultureInfo.InvariantCulture));
+                                newRow[fieldNumber] = DateTime.ParseExact(field.InnerText, "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
                             }
                             else
                             {
-                                newRow.SetField(fieldNumber, field.InnerText);
+                                newRow[fieldNumber] = field.InnerText;
                             }
                         }
                         fieldNumber++;

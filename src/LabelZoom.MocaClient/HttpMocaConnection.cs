@@ -93,8 +93,8 @@ namespace LabelZoom.MocaClient
             userId = null;
         }
 
-        public override async Task<MocaResponse> Execute(string command, IDictionary<string, object>? context = null) => await Execute(command, CancellationToken.None, context);
-        public override async Task<MocaResponse> Execute(string command, CancellationToken token, IDictionary<string, object>? context = null)
+        public override async Task<MocaResponse> Execute(string command, IDictionary<string, object> context = null) => await Execute(command, CancellationToken.None, context);
+        public override async Task<MocaResponse> Execute(string command, CancellationToken token, IDictionary<string, object> context = null)
         {
             if (string.IsNullOrEmpty(sessionKey))
             {
@@ -156,7 +156,7 @@ namespace LabelZoom.MocaClient
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        private XmlDocument GetXmlForRequest(string query, IDictionary<string, object>? context = null)
+        private XmlDocument GetXmlForRequest(string query, IDictionary<string, object> context = null)
         {
             XmlDocument doc = new XmlDocument();
 
@@ -174,7 +174,7 @@ namespace LabelZoom.MocaClient
                     variableNode.SetAttribute("name", kvp.Key);
                     variableNode.SetAttribute("oper", "EQ");
 
-                    XmlText? variableText = null;
+                    XmlText variableText = null;
                     if (kvp.Value is string)
                     {
                         variableNode.SetAttribute("type", "STRING");
@@ -232,7 +232,7 @@ namespace LabelZoom.MocaClient
         {
             XmlElement envNode = doc.CreateElement(string.Empty, "environment", string.Empty);
 
-            IDictionary<string, string?> vars = new SortedDictionary<string, string?>();
+            IDictionary<string, string> vars = new SortedDictionary<string, string>();
             foreach (KeyValuePair<string, string> kvp in environment)
             {
                 vars.Add(kvp.Key, kvp.Value);
@@ -242,7 +242,7 @@ namespace LabelZoom.MocaClient
             {
                 vars.Add("USR_ID", userId);
             }
-            foreach (KeyValuePair<string, string?> kvp in vars)
+            foreach (KeyValuePair<string, string> kvp in vars)
             {
                 XmlElement varNode = doc.CreateElement(string.Empty, "var", string.Empty);
                 varNode.SetAttribute("name", kvp.Key);

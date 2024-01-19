@@ -11,8 +11,8 @@ namespace LabelZoom.MocaClient
         protected const string MOCA_DATE_FORMAT = "yyyyMMddHHmmss";
 
         protected readonly IDictionary<string, string> environment = new Dictionary<string, string>();
-        protected string? sessionKey;
-        protected string? userId;
+        protected string sessionKey;
+        protected string userId;
 
         public abstract string ConnectionString { get; protected set; }
 
@@ -21,8 +21,8 @@ namespace LabelZoom.MocaClient
         public abstract Task<bool> Login(string userId, string password);
         public abstract Task<bool> Login(string userId, string password, CancellationToken token);
         public abstract void LogOut();
-        public abstract Task<MocaResponse> Execute(string command, IDictionary<string, object>? context = null);
-        public abstract Task<MocaResponse> Execute(string command, CancellationToken token, IDictionary<string, object>? context = null);
+        public abstract Task<MocaResponse> Execute(string command, IDictionary<string, object> context = null);
+        public abstract Task<MocaResponse> Execute(string command, CancellationToken token, IDictionary<string, object> context = null);
 
         #region Dispose Pattern
         private bool disposedValue;
