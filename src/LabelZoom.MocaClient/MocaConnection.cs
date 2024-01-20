@@ -24,6 +24,20 @@ namespace LabelZoom.MocaClient
         public abstract Task<MocaResponse> Execute(string command, IDictionary<string, object> context = null);
         public abstract Task<MocaResponse> Execute(string command, CancellationToken token, IDictionary<string, object> context = null);
 
+        public void SetEnvironmentVariable(string key, string value)
+        {
+            key = key.ToUpper();
+            if (key == "SESSION_KEY" || key == "USR_ID") throw new ArgumentException($"{key} is a protected variable");
+            environment[key] = value;
+        }
+
+        public void RemoveEnvironmentVariable(string key)
+        {
+            key = key.ToUpper();
+            if (key == "SESSION_KEY" || key == "USR_ID") throw new ArgumentException($"{key} is a protected variable");
+            environment.Remove(key);
+        }
+
         #region Dispose Pattern
         private bool disposedValue;
 
