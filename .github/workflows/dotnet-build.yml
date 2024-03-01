@@ -41,3 +41,9 @@ jobs:
         MOCA_PORT: ${{secrets.MOCA_PORT}}
         MOCA_USER: ${{secrets.MOCA_USER}}
         MOCA_PASS: ${{secrets.MOCA_PASS}}
+
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v4.0.1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        slug: labelzoom/labelzoom-moca-client-dotnet
