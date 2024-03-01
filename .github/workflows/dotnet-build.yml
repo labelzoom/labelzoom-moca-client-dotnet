@@ -34,7 +34,7 @@ jobs:
       
     - name: Test
       working-directory: ./src
-      run: ../.dotnet/dotnet test --no-build --verbosity normal
+      run: ../.dotnet/dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage"
       env:
         MOCA_URL: ${{secrets.MOCA_URL}}
         MOCA_HOST: ${{secrets.MOCA_HOST}}
