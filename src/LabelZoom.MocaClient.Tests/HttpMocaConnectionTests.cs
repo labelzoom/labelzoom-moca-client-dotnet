@@ -12,11 +12,11 @@ public class HttpMocaConnectionTests
     public HttpMocaConnectionTests()
     {
         url = Environment.GetEnvironmentVariable("MOCA_URL") ?? string.Empty;
-        Assert.NotEmpty(url);
+        Assert.False(string.IsNullOrEmpty(url));
         user = Environment.GetEnvironmentVariable("MOCA_USER") ?? string.Empty;
-        Assert.NotEmpty(user);
+        Assert.False(string.IsNullOrEmpty(user));
         password = Environment.GetEnvironmentVariable("MOCA_PASS") ?? string.Empty;
-        Assert.NotEmpty(password);
+        Assert.False(string.IsNullOrEmpty(password));
     }
 
     [Fact]
