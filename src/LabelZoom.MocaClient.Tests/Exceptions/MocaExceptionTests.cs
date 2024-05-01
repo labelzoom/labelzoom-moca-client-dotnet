@@ -17,11 +17,11 @@ public class MocaExceptionTests
     public MocaExceptionTests()
     {
         url = Environment.GetEnvironmentVariable("MOCA_URL") ?? string.Empty;
-        Assert.False(string.IsNullOrEmpty(url));
+        Assert.False(string.IsNullOrEmpty(url), "Missing MOCA_URL environment variable");
         user = Environment.GetEnvironmentVariable("MOCA_USER") ?? string.Empty;
-        Assert.False(string.IsNullOrEmpty(user));
+        Assert.False(string.IsNullOrEmpty(user), "Missing MOCA_USER environment variable");
         password = Environment.GetEnvironmentVariable("MOCA_PASS") ?? string.Empty;
-        Assert.False(string.IsNullOrEmpty(password));
+        Assert.False(string.IsNullOrEmpty(password), "Missing MOCA_PASS environment variable");
     }
 
     [Fact]
