@@ -30,11 +30,11 @@ jobs:
       working-directory: ./src
       run: ../.dotnet/dotnet test --no-build --configuration Release
       env:
-        MOCA_URL: ${{secrets.MOCA_URL}}
-        MOCA_HOST: ${{secrets.MOCA_HOST}}
-        MOCA_PORT: ${{secrets.MOCA_PORT}}
-        MOCA_USER: ${{secrets.MOCA_USER}}
-        MOCA_PASS: ${{secrets.MOCA_PASS}}
+        MOCA_URL: ${{ secrets.MOCA_URL }}
+        MOCA_HOST: ${{ secrets.MOCA_HOST }}
+        MOCA_PORT: ${{ secrets.MOCA_PORT }}
+        MOCA_USER: ${{ secrets.MOCA_USER }}
+        MOCA_PASS: ${{ secrets.MOCA_PASS }}
 
     - name: Pack
       working-directory: ./src
@@ -42,4 +42,4 @@ jobs:
 
     - name: Publish
       working-directory: ./src
-      run: ../.dotnet/dotnet nuget push "nupkg/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key ${{secrets.NUGET_API_KEY}}
+      run: ../.dotnet/dotnet nuget push "nupkg/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
