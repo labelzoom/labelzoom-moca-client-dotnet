@@ -34,13 +34,19 @@ jobs:
       
     - name: Test
       working-directory: ./src
-      run: ../.dotnet/dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage"
+      run: ../.dotnet/dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --logger:trx
       env:
         MOCA_URL: ${{ vars.MOCA_URL }}
         MOCA_HOST: ${{ vars.MOCA_HOST }}
         MOCA_PORT: ${{ vars.MOCA_PORT }}
         MOCA_USER: ${{ vars.MOCA_USER }}
         MOCA_PASS: ${{ vars.MOCA_PASS }}
+
+    - uses: actions/upload-artifact@v4  # upload test results
+      if: success() || failure()        # run this step even if previous step failed
+      with:
+        name: test-results
+        path: "**/TestResults/*.trx"
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v4.0.1
