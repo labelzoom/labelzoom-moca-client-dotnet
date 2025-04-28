@@ -1,6 +1,6 @@
 ﻿namespace LabelZoom.MocaClient.Exceptions
 {
-    internal class MocaExceptionFactory
+    internal static class MocaExceptionFactory
     {
         public static MocaException Generate(int statusCode, string message)
         {

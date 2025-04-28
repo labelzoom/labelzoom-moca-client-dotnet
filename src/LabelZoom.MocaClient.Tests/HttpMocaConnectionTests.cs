@@ -63,18 +63,15 @@ public class HttpMocaConnectionTests
         using (HttpClient client = new HttpClient())
         {
             client.Timeout = TimeSpan.FromSeconds(5);
-            using (var request = new HttpRequestMessage())
+            using (var request = new HttpRequestMessage(HttpMethod.Post, new Uri(url)))
+            using (var content = new StringContent(command))
             {
-                request.RequestUri = new Uri(url);
-                request.Method = HttpMethod.Post;
-                using (var content = new StringContent(command))
+                content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/moca-xml");
+                request.Content = content;
+                using (var response = await client.SendAsync(request))
                 {
-                    content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/moca-xml");
-                    request.Content = content;
-                    using (var response = await client.SendAsync(request))
-                    {
-                        response.EnsureSuccessStatusCode();
-                    }
+                    Assert.True(response.IsSuccessStatusCode);
+                    response.EnsureSuccessStatusCode();
                 }
             }
         }
