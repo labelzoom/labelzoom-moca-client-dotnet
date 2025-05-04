@@ -16,7 +16,7 @@ namespace LabelZoom.MocaClient
 
         public abstract string ConnectionString { get; protected set; }
 
-        public int ConnectionTimeout => 15;
+        public static int ConnectionTimeout => 15;
 
         public abstract Task<bool> Login(string userId, string password);
         public abstract Task<bool> Login(string userId, string password, CancellationToken token);
