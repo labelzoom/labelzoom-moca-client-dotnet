@@ -65,20 +65,20 @@ namespace LabelZoom.MocaClient
                     this.userId = userId;
                 }
             }
-            catch (TaskCanceledException ex)
+            catch (TaskCanceledException)
             {
                 // Don't log TaskCanceledException, just re-throw it
-                throw ex;
+                throw;
             }
             catch (MocaException ex)
             {
                 //LOG.Warn("MOCA Exception in MocaConnection.Login", ex);
-                throw ex;
+                throw;
             }
             catch (Exception ex)
             {
                 //LOG.Error("Unhandled exception in MocaConnection.Login", ex);
-                throw ex;
+                throw;
             }
             return true;
         }
@@ -114,20 +114,20 @@ namespace LabelZoom.MocaClient
                     return mocaResponse;
                 }
             }
-            catch (TaskCanceledException ex)
+            catch (TaskCanceledException)
             {
                 // Don't log TaskCanceledException, just re-throw it
-                throw ex;
+                throw;
             }
             catch (MocaException ex)
             {
                 //LOG.Warn("MOCA Exception in MocaConnection.Execute", ex);
-                throw ex;
+                throw;
             }
             catch (Exception ex)
             {
                 //LOG.Error($"Unhandled exception in MocaConnection.Execute", ex);
-                throw ex;
+                throw;
             }
         }
 

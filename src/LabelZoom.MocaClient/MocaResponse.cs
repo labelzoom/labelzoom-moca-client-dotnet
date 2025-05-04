@@ -106,7 +106,7 @@ namespace LabelZoom.MocaClient
                             Type columnType = dt.Columns[fieldNumber].DataType;
                             if (columnType == typeof(bool))
                             {
-                                newRow[fieldNumber] = "1".Equals(field.InnerText) ? true : false;
+                                newRow[fieldNumber] = "1".Equals(field.InnerText);
                             }
                             else if (columnType == typeof(double))
                             {
