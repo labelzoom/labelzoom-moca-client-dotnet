@@ -7,9 +7,9 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    environment: 'BY WMS 2020.1.1 QA'
     env:
       DOTNET_INSTALL_DIR: "./.dotnet"
-
     steps:
     - uses: actions/checkout@v3
 
