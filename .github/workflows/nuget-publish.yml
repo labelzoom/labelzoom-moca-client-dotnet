@@ -35,13 +35,13 @@ jobs:
 
     - name: Test
       working-directory: ./src
-      run: ../.dotnet/dotnet test --no-build --configuration Release
       env:
-        MOCA_URL: ${{ vars.MOCA_URL }}
+        MOCA_URL: 'http://localhost:4600/service'
         MOCA_HOST: ${{ vars.MOCA_HOST }}
         MOCA_PORT: ${{ vars.MOCA_PORT }}
-        MOCA_USER: ${{ vars.MOCA_USER }}
-        MOCA_PASS: ${{ vars.MOCA_PASS }}
+        MOCA_USER: ${{ secrets.MOCA_USER }}
+        MOCA_PASS: ${{ secrets.MOCA_PASS }}
+      run: ../.dotnet/dotnet test --no-build --configuration Release
 
     - name: Pack
       working-directory: ./src
