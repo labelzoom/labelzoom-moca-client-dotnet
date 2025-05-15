@@ -21,7 +21,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - uses: Voodoo262/cloudflare-access-proxy@v0.0.1
+    - uses: Voodoo262/cloudflare-access-proxy@v1
       with:
         cf-access-client-id: ${{ secrets.CF_ACCESS_CLIENT_ID }}
         cf-access-client-secret: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
@@ -45,8 +45,8 @@ jobs:
       working-directory: ./src
       env:
         MOCA_URL: 'http://localhost:${{ env.CF_PROXY_PORT }}/service'
-        MOCA_HOST: ${{ vars.MOCA_HOST }}
-        MOCA_PORT: ${{ vars.MOCA_PORT }}
+        MOCA_HOST: ${{ vars.MOCA_HOST }} # Not used yet
+        MOCA_PORT: ${{ vars.MOCA_PORT }} # Not used yet
         MOCA_USER: ${{ secrets.MOCA_USER }}
         MOCA_PASS: ${{ secrets.MOCA_PASS }}
       run: ../.dotnet/dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --logger:trx
