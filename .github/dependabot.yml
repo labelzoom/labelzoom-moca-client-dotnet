@@ -12,7 +12,7 @@ updates:
       interval: "weekly"
     labels:
       - "dependencies"
-      - "gradle"
+      - "nuget"
 
   # GitHub Actions
   - package-ecosystem: "github-actions"
