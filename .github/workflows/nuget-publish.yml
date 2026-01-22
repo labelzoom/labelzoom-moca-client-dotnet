@@ -9,15 +9,19 @@ on:
 
 jobs:
   publish:
+    name: Build and Publish Package
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     environment: 'BY WMS 2020.1.1 QA'
     env:
       DOTNET_INSTALL_DIR: "./.dotnet"
       CF_PROXY_PORT: 4600
-    steps:
-    - uses: actions/checkout@v6
 
-    - uses: Voodoo262/cloudflare-access-proxy@v1
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+    - uses: Voodoo262/cloudflare-access-proxy@363aef0df51ac8d863f821b9bbc052ad0fdd41e5 # v1.0.0
       with:
         cf-access-client-id: ${{ secrets.CF_ACCESS_CLIENT_ID }}
         cf-access-client-secret: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
@@ -25,7 +29,7 @@ jobs:
         listen-port: ${{ env.CF_PROXY_PORT }}
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v5
+      uses: actions/setup-dotnet@baa11fbfe1d6520db94683bd5c7a3818018e4309 # v5.1.0
       with:
         dotnet-version: 8.0.x
 

@@ -2,8 +2,6 @@
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
 name: .NET Build
-permissions:
-  contents: read
 
 on:
   push:
@@ -11,17 +9,32 @@ on:
   pull_request:
     branches: [ "main" ]
 
+# Cancel in-progress runs for the same workflow and branch/PR
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  checks: write  # For test result publishing
+  pull-requests: write  # For commenting on PRs
+  id-token: write # For Codecov
+
 jobs:
   build:
+    name: Build and Test
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     environment: 'BY WMS 2020.1.1 QA'
     env:
       DOTNET_INSTALL_DIR: "./.dotnet"
       CF_PROXY_PORT: 4600
-    steps:
-    - uses: actions/checkout@v6
 
-    - uses: Voodoo262/cloudflare-access-proxy@v1
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+    - uses: Voodoo262/cloudflare-access-proxy@363aef0df51ac8d863f821b9bbc052ad0fdd41e5 # v1.0.0
       with:
         cf-access-client-id: ${{ secrets.CF_ACCESS_CLIENT_ID }}
         cf-access-client-secret: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
@@ -29,7 +42,7 @@ jobs:
         listen-port: ${{ env.CF_PROXY_PORT }}
     
     - name: Setup .NET
-      uses: actions/setup-dotnet@v5
+      uses: actions/setup-dotnet@baa11fbfe1d6520db94683bd5c7a3818018e4309 # v5.1.0
       with:
         dotnet-version: 8.0.x
         
@@ -51,14 +64,16 @@ jobs:
         MOCA_PASS: ${{ secrets.MOCA_PASS }}
       run: ../.dotnet/dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --logger:trx
 
-    - uses: actions/upload-artifact@v6  # upload test results
-      if: success() || failure()        # run this step even if previous step failed
+    - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+      if: (!cancelled())
       with:
         name: test-results
         path: "**/TestResults/*.trx"
 
     - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v5.5.2
+      uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5.5.2
+      if: (!cancelled())
       with:
-        token: ${{ secrets.CODECOV_TOKEN }}
+        use_oidc: true
         slug: labelzoom/labelzoom-moca-client-dotnet
+        fail_ci_if_error: false
