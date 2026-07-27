@@ -21,7 +21,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-    - uses: Voodoo262/cloudflare-access-proxy@363aef0df51ac8d863f821b9bbc052ad0fdd41e5 # v1.0.0
+    - uses: Voodoo262/cloudflare-access-proxy@49fb7aa6d7708630e1a94d2096caa765344617eb # v1.0.1
       with:
         cf-access-client-id: ${{ secrets.CF_ACCESS_CLIENT_ID }}
         cf-access-client-secret: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
