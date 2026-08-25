@@ -19,9 +19,9 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-    - uses: Voodoo262/cloudflare-access-proxy@363aef0df51ac8d863f821b9bbc052ad0fdd41e5 # v1.0.0
+    - uses: Voodoo262/cloudflare-access-proxy@49fb7aa6d7708630e1a94d2096caa765344617eb # v1.0.1
       with:
         cf-access-client-id: ${{ secrets.CF_ACCESS_CLIENT_ID }}
         cf-access-client-secret: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
@@ -29,7 +29,7 @@ jobs:
         listen-port: ${{ env.CF_PROXY_PORT }}
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@baa11fbfe1d6520db94683bd5c7a3818018e4309 # v5.1.0
+      uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
       with:
         dotnet-version: 8.0.x
 
