@@ -5,7 +5,7 @@
     <ApplicationIcon>Resources\LabelZoom.ico</ApplicationIcon>
     <SignAssembly>False</SignAssembly>
     <Title>LabelZoom MOCA Client</Title>
-    <PackageProjectUrl>https://www.labelzoom.net</PackageProjectUrl>
+    <PackageProjectUrl>https://www.labelzoom.com</PackageProjectUrl>
     <Description>A MOCA client for .NET, sponsored by LabelZoom</Description>
     <PackageIcon>labelzoom-mark.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>

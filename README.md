@@ -6,7 +6,7 @@
 [![Release](https://img.shields.io/github/release/labelzoom/labelzoom-moca-client-dotnet.svg?style=flat-square)](https://github.com/labelzoom/labelzoom-moca-client-dotnet/releases)
 [![codecov](https://codecov.io/gh/labelzoom/labelzoom-moca-client-dotnet/graph/badge.svg?token=XW4CQZTGBV)](https://codecov.io/gh/labelzoom/labelzoom-moca-client-dotnet)
 
-MOCA client for .NET, sponsored by [LabelZoom](https://www.labelzoom.net).
+MOCA client for .NET, sponsored by [LabelZoom](https://www.labelzoom.com).
 
 ## How To Use
 See [tests](src/LabelZoom.MocaClient.Tests) for more examples.
